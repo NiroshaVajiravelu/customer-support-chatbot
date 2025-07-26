@@ -1,0 +1,46 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.chat-window {
+  width: 400px;
+  margin: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.message-list {
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.message {
+  padding: 5px;
+  margin: 3px 0;
+}
+
+.message.user {
+  text-align: right;
+  color: blue;
+}
+
+.message.bot {
+  text-align: left;
+  color: green;
+}
+
+.user-input {
+  display: flex;
+  gap: 5px;
+}
+
+.user-input input {
+  flex: 1;
+  padding: 5px;
+}
+
+.user-input button {
+  padding: 5px 10px;
+}
