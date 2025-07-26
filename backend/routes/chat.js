@@ -3,6 +3,27 @@ const router = express.Router();
 const Message = require('../models/Message');
 const Conversation = require('../models/Conversation');
 
+// Utility: Keyword-based chatbot logic
+const getBotResponse = (text) => {
+  const input = text.toLowerCase();
+
+  if (input.includes('t-shirt') || input.includes('shirt')) {
+    return 'We have a wide collection of T-shirts! What size are you looking for?';
+  } else if (input.includes('jeans')) {
+    return 'We offer various styles of jeans. Are you looking for skinny, straight, or relaxed fit?';
+  } else if (input.includes('order status') || input.includes('track')) {
+    return 'To track your order, please provide your order number.';
+  } else if (input.includes('refund') || input.includes('return')) {
+    return 'Please share your order ID so we can initiate the refund or return process.';
+  } else if (input.includes('hello') || input.includes('hi')) {
+    return 'Hello! How can I help you today? 😊';
+  } else if (input.includes('bye')) {
+    return 'Thank you for visiting us! Have a great day!';
+  } else {
+    return `You said: "${text}". How can I assist you further?`;
+  }
+};
+
 // POST /api/chat/send
 router.post('/send', async (req, res) => {
   try {
@@ -21,8 +42,8 @@ router.post('/send', async (req, res) => {
       conversationId: convo._id,
     });
 
-    // 3. Create bot reply (mock)
-    const botText = `You said: "${text}". How can I assist you further?`;
+    // 3. Generate intelligent bot reply
+    const botText = getBotResponse(text);
     const botMsg = await Message.create({
       sender: 'bot',
       text: botText,
