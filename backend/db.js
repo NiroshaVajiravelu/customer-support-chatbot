@@ -1,8 +1,16 @@
-import { Sequelize } from "sequelize";
+const mongoose = require('mongoose');
 
-const sequelize = new Sequelize({
-  dialect: "sqlite",
-  storage: "./backend/data/conversations.sqlite"
-});
+const connectDB = async () => {
+  try {
+    await mongoose.connect('mongodb://localhost:27017/chatbot', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('MongoDB connected');
+  } catch (err) {
+    console.error('MongoDB connection failed:', err.message);
+    process.exit(1);
+  }
+};
 
-export default sequelize;
+module.exports = connectDB;
