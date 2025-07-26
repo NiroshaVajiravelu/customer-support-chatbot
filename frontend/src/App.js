@@ -1,12 +1,14 @@
 import React from 'react';
+import { ChatProvider } from './context/ChatContext';
 import ChatWindow from './components/ChatWindow';
 
 function App() {
   return (
-    <div className="App">
-      <h2>AI Chatbot</h2>
-      <ChatWindow />
-    </div>
+    <ChatProvider>
+      <div className="min-h-screen bg-gray-100 flex justify-center items-center">
+        <ChatWindow />
+      </div>
+    </ChatProvider>
   );
 }
 
