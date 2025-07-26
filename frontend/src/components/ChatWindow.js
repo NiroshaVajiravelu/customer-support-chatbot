@@ -11,7 +11,7 @@ const ChatWindow = () => {
   const sendMessage = async (text) => {
     setLoading(true);
     try {
-      const res = await axios.post('http://localhost:5000/api/chat/send', {
+      const res = await axios.post('/api/chat/send', {
         userId,
         text,
       });
