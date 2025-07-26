@@ -1,13 +1,13 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../db.js";
-import Conversation from "./Conversation.js";
+const mongoose = require('mongoose');
 
-const Message = sequelize.define("Message", {
-  sender: DataTypes.STRING,
-  content: DataTypes.TEXT
+const MessageSchema = new mongoose.Schema({
+  sender: String, // "user" or "ai"
+  text: String,
+  timestamp: {
+    type: Date,
+    default: Date.now
+  },
+  conversationId: { type: mongoose.Schema.Types.ObjectId, ref: 'Conversation' }
 });
 
-Conversation.hasMany(Message);
-Message.belongsTo(Conversation);
-
-export default Message;
+module.exports = mongoose.model('Message', MessageSchema);
