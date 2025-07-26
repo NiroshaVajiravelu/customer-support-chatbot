@@ -1,27 +1,29 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import ChatContext from '../context/ChatContext';
 
-const UserInput = ({ onSend, disabled }) => {
-  const [text, setText] = useState('');
+function UserInput({ onSend }) {
+  const { state, dispatch } = useContext(ChatContext);
 
   const handleSend = () => {
-    if (text.trim()) {
-      onSend(text.trim());
-      setText('');
+    if (state.inputValue.trim()) {
+      onSend(state.inputValue);
+      dispatch({ type: 'SET_INPUT', payload: '' });
     }
   };
 
   return (
-    <div className="user-input">
+    <div className="flex gap-2 mt-2">
       <input
-        type="text"
-        placeholder="Type here..."
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        disabled={disabled}
+        className="border px-2 py-1 flex-1"
+        value={state.inputValue}
+        onChange={(e) => dispatch({ type: 'SET_INPUT', payload: e.target.value })}
+        placeholder="Type your message..."
       />
-      <button onClick={handleSend} disabled={disabled}>Send</button>
+      <button onClick={handleSend} className="bg-blue-500 text-white px-4 py-1 rounded">
+        Send
+      </button>
     </div>
   );
-};
+}
 
 export default UserInput;
