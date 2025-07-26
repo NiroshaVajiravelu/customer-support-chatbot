@@ -1,11 +1,8 @@
-import { DataTypes } from "sequelize";
-import sequelize from "../db.js";
+const mongoose = require('mongoose');
 
-const Conversation = sequelize.define("Conversation", {
-  userId: {
-    type: DataTypes.STRING,
-    allowNull: false
-  }
+const ConversationSchema = new mongoose.Schema({
+  userId: String,
+  messages: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Message' }]
 });
 
-export default Conversation;
+module.exports = mongoose.model('Conversation', ConversationSchema);
