@@ -1,13 +1,23 @@
 const mongoose = require('mongoose');
 
 const MessageSchema = new mongoose.Schema({
-  sender: String, // "user" or "ai"
-  text: String,
-  timestamp: {
-    type: Date,
-    default: Date.now
+  sender: {
+    type: String, // 'user' or 'bot'
+    required: true,
   },
-  conversationId: { type: mongoose.Schema.Types.ObjectId, ref: 'Conversation' }
+  text: {
+    type: String,
+    required: true,
+  },
+  sentAt: {
+    type: Date,
+    default: Date.now,
+  },
+  conversationId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Conversation',
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('Message', MessageSchema);
